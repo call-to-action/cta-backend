@@ -43,9 +43,14 @@ class CtaUser(AbstractBaseUser):
         max_length=255,
         unique=True,
     )
+    
+    name = models.CharField(max_length=200)
+    is_activity_public = models.BooleanField(default=True)
+    is_verified = models.BooleanField(default=False)
+    is_organization =  models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-
+	pub_date = models.DateTimeField(default=timezone.now())
     objects = CtaUserManager()
 
     USERNAME_FIELD = 'email'
@@ -84,7 +89,7 @@ class CallToAction(models.Model):
 	how = models.CharField(max_length=200)
 	phone = models.CharField(max_length=200)
 	tags = TaggableManager()
-	pub_date = models.DateTimeField('date published')
+	pub_date = models.DateTimeField(default=timezone.now())
 
 	def __str__(self):
 		return "%s,%s,%s" % (what,phone,str(pub_date)[:10])
@@ -98,7 +103,7 @@ class CallToAction(models.Model):
 class AcceptedCta(models.Model):
 	user = models.ForeignKey(CtaUser)
 	cta = models.CharField(max_length=200)
-	pub_date = models.DateTimeField('date published')
+	pub_date = models.DateTimeField(default=timezone.now())
 	def __str__(self):
 		return "YES %s %s" % (user,cta)
 		 
@@ -110,7 +115,7 @@ class AcceptedCta(models.Model):
 class RejectedCta(models.Model):
 	user = models.ForeignKey(CtaUser)
 	cta = models.CharField(max_length=200)
-	pub_date = models.DateTimeField('date published')
+	pub_date = models.DateTimeField(default=timezone.now())
 
 	def __str__(self):
 		return "NO %s %s" % (user,cta)
@@ -118,3 +123,45 @@ class RejectedCta(models.Model):
 	class Meta:
 		verbose_name = "Rejected Cta"
 		verbose_name_plural = "Rejected Cta"
+
+class UserSubcriptionManager(models.Manager):
+    """
+    Custom manager for :model:'cta.UserSubcription'
+    """
+
+    def subscribers(self, user):
+        return self.get_queryset().filter(subscription=user)
+
+    def suscriptions(self, user):
+        return self.get_queryset().filter(subscriber=user)
+
+class UserSubscription(models.Model):
+    """
+    Stores relation between a subscriber and the one being subscribed and vice versa
+
+    related to :model:'cta.CtaUser'
+    """
+    subscriber = models.ForeignKey(CtaUser, related_name="user_subscriber")
+    subscription = models.ForeignKey(CtaUser, related_name="user_subscription")
+    pub_date = models.DateTimeField(default=timezone.now())
+
+    objects = UserSubscriberManager()
+
+    def __unicode__(self):
+        return "%s -> %s" % (self.subscribers.username, self.subscriptions.username)
+
+    class Meta:
+        verbose_name = "User Subscription"
+        verbose_name_plural = "User Subscriptions"
+
+
+class AcceptedCta(models.Model):
+	user = models.ForeignKey(CtaUser)
+	cta = models.CharField(max_length=200)
+	pub_date = models.DateTimeField(default=timezone.now())
+	def __str__(self):
+		return "YES %s %s" % (user,cta)
+		 
+	class Meta:
+		verbose_name = "Accepted Cta"
+		verbose_name_plural = "Accepted Cta"
