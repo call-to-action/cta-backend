@@ -35,7 +35,7 @@ SECRET_KEY = 't1p25m(rpv($#_p&lh)c&*j-iz59g!^-%g2bh5ah7+_hwov0@&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['cta-backend.herokuapp.com','localhost']
 
 
 # Application definition
@@ -151,3 +151,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
+
+SECURE_PROXY_SSL_HEADER = (‘HTTP_X_FORWARDED_PROTO’, ‘https’)
