@@ -79,10 +79,10 @@ class CtaUser(AbstractBaseUser):
 
 class CallToAction(models.Model):
 	#phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
-	user = models.ForeignKey(CtaUser)
+	created_by = models.ForeignKey(CtaUser)
 	title = models.CharField(max_length=200)
 	description = models.TextField()
-	action_item = models.CharField(max_length=200)
+	action_item = models.TextField()
 	phone = models.CharField(max_length=25)
 	tags = TaggableManager()
 	created_at = models.DateTimeField(default=timezone.now())
@@ -93,8 +93,8 @@ class CallToAction(models.Model):
 		return "%s,%s,%s" % (what,phone,str(created_at)[:10])
 		 
 	class Meta:
-		verbose_name = "Accepted Cta"
-		verbose_name_plural = "Accepted Cta"
+		verbose_name = "Call To Action"
+		verbose_name_plural = "Call To Actions"
 
 
 #I am intentially making this not normalized 
