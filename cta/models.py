@@ -90,7 +90,7 @@ class CallToAction(models.Model):
 
 
 	def __str__(self):
-		return "%s,%s,%s" % (what,phone,str(created_at)[:10])
+		return "%s,%s,%s" % (self.title,self.phone,str(self.created_at)[:10])
 		 
 	class Meta:
 		verbose_name = "Call To Action"
@@ -115,7 +115,7 @@ class UserCallToAction(models.Model):
 	updated_at = models.DateTimeField(auto_now=True,null=True, blank=True)	
 	
 	def __str__(self):
-		return "YES %s %s" % (user,cta)
+		return "YES %s %s" % (self.user,self.cta)
 		 
 	class Meta:
 		verbose_name = "User Call To Action"
