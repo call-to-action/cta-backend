@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'oauth2_provider',
     'rest_framework',
     'taggit',
-    'cta'
+    'cta',
 
 ]
 
