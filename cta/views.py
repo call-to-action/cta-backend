@@ -23,7 +23,7 @@ class CtaUserViewSet(viewsets.ModelViewSet):
         pass
 
 class CallToActionViewSet(viewsets.ModelViewSet):
-    queryset = CtaUser.objects.all().order_by('-created_at')
+    queryset = CallToAction.objects.all().order_by('-created_at')
     serializer_class = CallToActionSerializer
 
 
