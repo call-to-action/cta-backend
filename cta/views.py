@@ -16,6 +16,7 @@ class CtaUserViewSet(viewsets.ModelViewSet):
     queryset = CtaUser.objects.all().order_by('-created_at')
     serializer_class = CtaUserPublicSerializer
 
+
     @detail_route(methods=['post'])#, permission_classes=[IsAdminOrIsSelf])
     def set_password(self, request, pk=None):
         #send email with sendgrid or something 
