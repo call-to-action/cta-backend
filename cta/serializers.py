@@ -13,7 +13,7 @@ class CtaUserPublicSerializer(serializers.HyperlinkedModelSerializer):
 class CallToActionSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = CallToAction
-        fields = ('id','created_by','title','description','action_item','phone','tags','created_at','updated_at')
+        fields = ('id','created_by','title','description','action_item','phone','created_at','updated_at') #tags
 
 class UserCallToActionSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
