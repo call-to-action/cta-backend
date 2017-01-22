@@ -8,12 +8,15 @@ router.register(r'users', views.CtaUserViewSet)
 router.register(r'cta', views.CallToActionViewSet)
 router.register(r'subscriptions', views.UserSubscriptionViewSet)
 router.register(r'usercta', views.UserCallToActionViewSet)
-
+import views
 
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
+
+    url(r'^$', views.signup,name="signup"),
+    url(r'^$', views.signup,name="results"),
     url(r'^admin/', admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),

@@ -1,0 +1,11 @@
+<h1>Welcome To Call To Action</h1>
+<h3>Bringing knowledge, undestanding, and transparency to activitism</h3>
+
+<h1>Sign up here for access to our testflight beta</h1>
+
+<form action="{% url 'cta_backend:signup' %}" method="post">
+{% csrf_token %}
+    <input type="text" name="email" id="email" value="" placeholder="youremail@example.com"/>
+{% endfor %}
+<input type="submit" value="Sign Up!" />
+</form>
